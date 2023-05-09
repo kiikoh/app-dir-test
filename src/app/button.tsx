@@ -5,26 +5,27 @@ import { experimental_useOptimistic as useOptimistic } from "react";
 export default function Button({
   latestPress,
 }: {
-  latestPress: { id: number; pressedAt: Date } | undefined;
+  latestPress: { id: number; pressedAt: Date };
 }) {
-  const [optPress, setOptPress] = useOptimistic(latestPress, (press) => {
-    if (!press) return { id: 1, pressedAt: new Date() };
-
-    return { id: press.id + 1, pressedAt: new Date() };
-  });
+  const [optPress, setOptPress] = useOptimistic(
+    latestPress,
+    (state, press: { id: number; pressedAt: Date }) => {
+      return { ...state, id: press.id, pressedAt: new Date() };
+    }
+  );
 
   return (
     <>
       <button
         onClick={() => {
-          setOptPress(optPress);
+          setOptPress({ id: optPress?.id ?? 0 + 1, pressedAt: new Date() });
           void increment();
         }}
       >
         Click me
       </button>
       <p>Clicked {optPress?.id} times</p>
-      <p>Last pressed at {optPress?.pressedAt?.toLocaleDateString()}</p>
+      <p>Last pressed at {optPress?.pressedAt?.toLocaleTimeString()}</p>
     </>
   );
 }

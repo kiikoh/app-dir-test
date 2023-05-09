@@ -11,6 +11,8 @@ export default async function HomePage() {
     .orderBy(desc(presses.pressedAt))
     .limit(1);
 
+  if (!latestPress) return <p>Loading...</p>;
+
   return (
     <div>
       <h1>Home Page</h1>

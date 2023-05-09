@@ -10,5 +10,5 @@ export const increment = async () => {
   revalidatePath("/");
 };
 
-export const runtime = "edge";
-export const regions = ["iad1"];
+// export const runtime = "edge";
+// export const regions = ["iad1"];
