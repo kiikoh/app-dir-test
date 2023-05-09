@@ -9,3 +9,8 @@ export const increment = async () => {
   await db.insert(presses).values({});
   revalidatePath("/");
 };
+
+export const config = {
+  runtime: "edge",
+  regions: ["iad1"],
+};
